@@ -1,0 +1,23 @@
+services:
+
+  mtg:
+    container_name: "mtg"
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    depends_on:
+      - db_mtg 
+    ports:
+      - "3000:3000"
+
+  db_mtg:
+    container_name: "db_mtg" 
+    image: "mongo:latest"
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: 'project_card_game'
+      MONGO_INITDB_ROOT_USERNAME: 'mtg'
+      MONGO_INITDB_ROOT_PASSWORD: 'mtg'
